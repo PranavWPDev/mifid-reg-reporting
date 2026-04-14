@@ -1,0 +1,35 @@
+-- DELETE FROM source_trades;
+
+-- -- PASS trade
+-- INSERT INTO source_trades (
+--     trade_id,
+--     payload,
+--     source_channel,
+--     source_label,
+--     source_ref,
+--     created_at
+-- ) VALUES (
+--     'DB_PASS_1',
+--     '{"trade_id":"DB_PASS_1","trade_datetime":"2026-04-07T09:00:00Z","reporting_datetime":"2026-04-07T10:00:00Z","isin":"US0378331005","executing_entity_lei":"5493001KJTIIGC8Y1R12","buyer_lei":"213800D1EI4B9WTWWD28","seller_lei":"529900T8BM49AURSDO55","price":180,"currency":"USD","quantity":30,"venue":"XNAS","notional_amount":5400,"report_status":"NEWT","instrument_type":"EQUITY"}',
+--     'in_memory',
+--     'Trading System DB',
+--     'seed.sql',
+--     CURRENT_TIMESTAMP
+-- );
+
+-- -- HITL example
+-- INSERT INTO source_trades (
+--     trade_id,
+--     payload,
+--     source_channel,
+--     source_label,
+--     source_ref,
+--     created_at
+-- ) VALUES (
+--     'DB_HITL_1',
+--     '{"trade_id":"DB_HITL_1","trade_datetime":"2024-03-10T09:00:00Z","reporting_datetime":"2026-04-08T10:00:00Z","isin":"US0378331005","executing_entity_lei":"5493001KJTIIGC8Y1R12","buyer_lei":"213800D1EI4B9WTWWD28","seller_lei":"529900T8BM49AURSDO55","price":180,"currency":"USD","quantity":30,"venue":"XNAS","notional_amount":5400,"report_status":"NEWT","instrument_type":"EQUITY"}',
+--     'in_memory',
+--     'Trading System DB',
+--     'seed.sql',
+--     CURRENT_TIMESTAMP
+-- );

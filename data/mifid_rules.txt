@@ -1,0 +1,125 @@
+MiFID II Field Mapping and Validation Rules
+
+----------------------------------------
+FIELD MAPPINGS
+----------------------------------------
+
+Field: trade_id
+Synonyms: transaction_id, ref_no, trade_ref, trn_id, order_id
+MiFID Field: Field 2 - Transaction Reference Number
+
+Field: trade_datetime
+Synonyms: trade_date, execution_time, trade_time, timestamp, exec_datetime
+MiFID Field: Field 8 - Trading Date Time
+Format: ISO 8601 (YYYY-MM-DDTHH:MM:SS.sssZ)
+
+Field: isin
+Synonyms: instrument_id, security_id, instrument_code, security_code, product_id
+MiFID Field: Field 9 - Instrument Identification Code
+Format: 12-character ISIN (ISO 6166)
+
+Field: executing_entity_lei
+Synonyms: firm_lei, executing_firm, broker_lei, entity_id, reporting_firm
+MiFID Field: Field 4 - Executing Entity Identification Code
+Format: 20-character LEI (ISO 17442)
+
+Field: buyer_lei
+Synonyms: buyer_id, buy_side_lei, counterparty_buy, purchaser_lei, client_buy_lei
+MiFID Field: Field 6 - Buyer Identification Code
+
+Field: seller_lei
+Synonyms: seller_id, sell_side_lei, counterparty_sell, vendor_lei, client_sell_lei
+MiFID Field: Field 7 - Seller Identification Code
+
+Field: price
+Synonyms: trade_price, execution_price, deal_price, unit_price, fill_price
+MiFID Field: Field 10 - Price
+Rule: Must be positive numeric (> 0)
+
+Field: currency
+Synonyms: ccy, trade_ccy, settlement_ccy, price_currency, instrument_currency
+MiFID Field: Field 11 - Currency
+Rule: Must follow ISO 4217 (USD, EUR, GBP, JPY, CHF)
+
+Field: quantity
+Synonyms: qty, volume, shares, units, size, trade_size, lot_size
+MiFID Field: Field 12 - Quantity
+Rule: Must be positive numeric (> 0)
+
+Field: venue
+Synonyms: mic, exchange, market, trading_venue, execution_venue, platform
+MiFID Field: Field 13 - Venue
+Rule: Must follow ISO 10383 MIC code (XLON, XPAR, XETR, XNAS, etc.)
+
+Field: notional_amount
+Synonyms: notional, trade_value, gross_value, consideration, total_value
+MiFID Field: Field 14 - Notional Amount
+Rule: price × quantity
+
+Field: report_status
+Synonyms: status, msg_type, action_type, record_type, report_type
+MiFID Field: Field 1 - Report Status
+Valid Values: NEWT, AMND, CANC
+
+Field: instrument_type
+Synonyms: asset_class, product_type, security_type, instrument_class
+MiFID Field: Instrument Classification
+Valid Values: EQUITY, BOND, DERIVATIVE, ETF, FUND
+
+
+----------------------------------------
+VALIDATION RULES
+----------------------------------------
+
+BR-001:
+notional_amount must equal price × quantity within 0.01 tolerance
+Severity: CRITICAL
+
+BR-002:
+executing_entity_lei must be 20 alphanumeric characters (ISO 17442)
+Severity: CRITICAL
+
+BR-003:
+buyer_lei and seller_lei must not be equal (no wash trades)
+Severity: HIGH
+
+BR-004:
+price must be strictly positive (> 0)
+Severity: HIGH
+
+BR-005:
+quantity must be strictly positive (> 0)
+Severity: HIGH
+
+BR-006:
+trade_datetime must be valid ISO 8601 UTC format
+Severity: CRITICAL
+
+BR-007:
+ISIN must follow ISO 6166 (12 characters with valid country prefix)
+Severity: CRITICAL
+
+BR-008:
+currency must be valid ISO 4217 code
+Severity: HIGH
+
+BR-009:
+venue must be valid ISO 10383 MIC code
+Severity: HIGH
+
+
+----------------------------------------
+COMPLIANCE RULES
+----------------------------------------
+
+BR-010:
+report_status must be NEWT, AMND, or CANC
+Severity: CRITICAL
+
+BR-011:
+buyer_lei and seller_lei are mandatory for equity trades
+Severity: HIGH
+
+BR-012:
+trade must be reported within T+1 (1 business day)
+Severity: CRITICAL
